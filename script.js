@@ -1,14 +1,22 @@
-function onPageLoaded() {
-    // Write your javascript code here
-    console.log("page loaded");
-}
+// Инициализация Telegram WebApp
+const tg = window.Telegram.WebApp;
+tg.expand(); // расширяем на весь экран
+tg.ready();  // уведомляем Telegram, что приложение готово
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Listen for clicks on elements with the class 'play-button'
-    document.querySelectorAll(".play-button").forEach(function (button) {
-        button.addEventListener("click", function () {
-            // When a play button is clicked, simulate a click on the <a> tag within the same .video-container
-            this.parentNode.querySelector("a").click();
-        });
-    });
-});
+// Загружаем баланс из localStorage
+let coins = parseInt(localStorage.getItem('coins')) || 0;
+
+// Обновляем отображение
+document.getElementById('coins').textContent = coins;
+
+// Функция клика
+function clickCoin() {
+  coins++;
+  localStorage.setItem('coins', coins.toString());
+  document.getElementById('coins').textContent = coins;
+
+  // Опционально: вибрация (если поддерживается)
+  if (navigator.vibrate) {
+    navigator.vibrate(20);
+  }
+}
